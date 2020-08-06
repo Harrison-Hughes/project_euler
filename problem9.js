@@ -16,4 +16,31 @@ const pythagoreanTriplet = (a, b, c) => {
   else return false;
 };
 
-let [a, b, c] = [1, 2, 997];
+const calculatePythagoreanTripletWhichSumsToN = (n) => {
+  let [a, b, c] = [1, 2, n - 3];
+  let solution = false;
+
+  while (!solution) {
+    if (pythagoreanTriplet(a, b, c)) solution = [a, b, c];
+    else if (!sumTo1000(a, b, c) || a > b || a > c || b > c)
+      solution = "error in func";
+    else {
+      if (b + 1 < c - 1) {
+        [b, c] = [b + 1, c - 1];
+      } else {
+        [a, b, c] = [a + 1, a + 2, n - 2 * a - 3];
+      }
+    }
+  }
+
+  if (!!solution) return solution;
+  else return "no solution";
+};
+
+const calculateProductOFTriplet = (arr) => {
+  return arr[0] * arr[1] * arr[2];
+};
+
+console.log(
+  calculateProductOFTriplet(calculatePythagoreanTripletWhichSumsToN(1000))
+);
