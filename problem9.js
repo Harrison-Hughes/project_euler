@@ -22,8 +22,6 @@ const calculatePythagoreanTripletWhichSumsToN = (n) => {
 
   while (!solution) {
     if (pythagoreanTriplet(a, b, c)) solution = [a, b, c];
-    else if (!sumTo1000(a, b, c) || a > b || a > c || b > c)
-      solution = "error in func";
     else {
       if (b + 1 < c - 1) {
         [b, c] = [b + 1, c - 1];
