@@ -18,6 +18,8 @@ def nHasFactorInArray(n, arr)
   for i in arr do
     if n % i == 0
       return true
+    elsif i**2 >= n
+      return false
     end
   end
   return false
