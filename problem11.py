@@ -25,7 +25,7 @@
 import numpy
 
 
-def greatestNProduct(n, stringGrid):
+def greatest_n_product(n, stringGrid):
     rows = stringGrid.strip().split('\n')
     array = [map(int, x.strip().split(' ')) for x in rows]
     greatest_product = 0
@@ -94,4 +94,4 @@ numbers = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
 
 if __name__ == "__main__":
-    print greatestNProduct(4, numbers)
+    print greatest_n_product(4, numbers)
