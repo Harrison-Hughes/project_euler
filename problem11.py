@@ -22,17 +22,54 @@
 # 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 
 # What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
+import numpy
 
 
-def greatest4x4Product(stringGrid):
+def greatestNProduct(n, stringGrid):
     rows = stringGrid.strip().split('\n')
     array = [map(int, x.strip().split(' ')) for x in rows]
-    greatestProduct = 0
+    greatest_product = 0
     for row_index in range(len(array)):
-        for entry_index in range(len(array[row_index])):
-            print array[row_index][entry_index]
+        for column_index in range(len(array[row_index])):
+            products_in_all_directions = [product_n_right(n, array, row_index, column_index), product_n_down(
+                n, array, row_index, column_index), product_n_down_right(n, array, row_index, column_index), product_n_down_left(n, array, row_index, column_index)]
+            max_product = numpy.max(products_in_all_directions)
+            if max_product > greatest_product:
+                greatest_product = max_product
         row_index += 1
-    return array
+    return greatest_product
+
+
+def product_n_right(n, array, row_index, column_index):
+    product = 1
+    if column_index <= len(array[row_index]) - n:
+        for i in range(n):
+            product *= array[row_index][column_index + i]
+    return product
+
+
+def product_n_down(n, array, row_index, column_index):
+    product = 1
+    if row_index <= len(array) - n:
+        for i in range(n):
+            product *= array[row_index + i][column_index]
+    return product
+
+
+def product_n_down_right(n, array, row_index, column_index):
+    product = 1
+    if row_index <= len(array) - n and column_index <= len(array[row_index]) - n:
+        for i in range(n):
+            product *= array[row_index + i][column_index + i]
+    return product
+
+
+def product_n_down_left(n, array, row_index, column_index):
+    product = 1
+    if row_index <= len(array) - n and column_index >= n - 1:
+        for i in range(n):
+            product *= array[row_index + i][column_index - i]
+    return product
 
 
 numbers = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -57,4 +94,4 @@ numbers = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
 
 if __name__ == "__main__":
-    print greatest4x4Product(numbers)
+    print greatestNProduct(4, numbers)
