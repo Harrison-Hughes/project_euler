@@ -11,11 +11,9 @@ def first_n_digits_of_sum_of_array(n, array):
         for num in array_string:
             nth_digit_sum += int(num[i])
         digits.append(nth_digit_sum)
-        print('digits', digits)
     sum = 0
     for i in range(n+1):
         sum += digits[-(i+1)] * (10**i)
-        print('sum', sum)
     return int(('%s' % sum)[0:10])
 
 
