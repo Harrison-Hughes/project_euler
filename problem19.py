@@ -16,21 +16,26 @@ def how_many_sundays(start_year, end_year, start_day):
     non_leap_month_lengths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     leap_month_lengths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     [sunday_counter, start_of_month] = [0, start_day]
-    for year in range(start_year, end_year):
+    for year in range(start_year, end_year+1):
+        months = []
         if ((not year % 100 == 0) and year % 4 == 0) or (year % 400 == 0):
             for month in range(12):
-                start_of_month = (
-                    start_of_month + leap_month_lengths[month]) % 7
+                # print(year, month, start_of_month)
                 if start_of_month == 0:
                     sunday_counter += 1
+                    months.append(month)
+                start_of_month = (
+                    start_of_month + leap_month_lengths[month]) % 7
         else:
             for month in range(12):
-                start_of_month = (
-                    start_of_month + leap_month_lengths[month]) % 7
+                # print(year, month, start_of_month)
                 if start_of_month == 0:
                     sunday_counter += 1
-        print(year)
-    return 0
+                    months.append(month)
+                start_of_month = (
+                    start_of_month + non_leap_month_lengths[month]) % 7
+        print(year, months)
+    return sunday_counter
 
 
 if __name__ == "__main__":
