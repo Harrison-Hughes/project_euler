@@ -10,10 +10,6 @@
 # Find the maximum total from top to bottom in triangle.txt(right click and 'Save Link/Target As...'), a 15K text file containing a triangle with one-hundred rows.
 # https: // projecteuler.net/problem=67
 
-# f = open("p067_triangle.txt", "r")
-# for x in f:
-#     print(x)
-
 
 def parse_triangle_txtfile_to_array(triangle_file_string):
     [triangle_array, triangle_rows] = [[], []]
