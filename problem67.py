@@ -13,7 +13,7 @@
 
 def parse_triangle_txtfile_to_array(triangle_file_string):
     [triangle_array, triangle_rows] = [[], []]
-    f = open("p067_triangle.txt", "r")
+    f = open(triangle_file_string, "r")
     for x in f:
         triangle_rows.append(x[0:-1])
     f.close()
@@ -23,7 +23,6 @@ def parse_triangle_txtfile_to_array(triangle_file_string):
         for i in split_row:
             num_row.append(int(i))
         triangle_array.append(num_row)
-    print(triangle_array)
     return triangle_array
 
 
@@ -45,7 +44,6 @@ def maximum_path(triangle_file_string):
                         max_dist_triangle[i-1][t]) + triangle_array[i]
                     [t])
         max_dist_triangle.append(mdt_row)
-    print(max_dist_triangle)
     max_of_final_row = max(max_dist_triangle[-1])
     return max_of_final_row
 
