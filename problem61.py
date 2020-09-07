@@ -2,13 +2,83 @@
 
 # Triangle	 	P3,n=n(n+1)/2	 	1, 3, 6, 10, 15, ...
 # Square	 	P4,n=n2	 	1, 4, 9, 16, 25, ...
-# Pentagonal	 	P5,n=n(3n−1)/2	 	1, 5, 12, 22, 35, ...
-# Hexagonal	 	P6,n=n(2n−1)	 	1, 6, 15, 28, 45, ...
-# Heptagonal	 	P7,n=n(5n−3)/2	 	1, 7, 18, 34, 55, ...
-# Octagonal	 	P8,n=n(3n−2)	 	1, 8, 21, 40, 65, ...
+# Pentagonal   P5,n=n(3n-1)/2   1, 5, 12, 22, 35, ...
+# Hexagonal	 	P6,n=n(2n-1)	 	1, 6, 15, 28, 45, ...
+# Heptagonal	 	P7,n=n(5n-3)/2	 	1, 7, 18, 34, 55, ...
+# Octagonal	 	P8,n=n(3n-2)	 	1, 8, 21, 40, 65, ...
 # The ordered set of three 4-digit numbers: 8128, 2882, 8281, has three interesting properties.
 
 # The set is cyclic, in that the last two digits of each number is the first two digits of the next number (including the last number with the first).
 # Each polygonal type: triangle (P3,127=8128), square (P4,91=8281), and pentagonal (P5,44=2882), is represented by a different number in the set.
 # This is the only set of 4-digit numbers with this property.
+
 # Find the sum of the only ordered set of six cyclic 4-digit numbers for which each polygonal type: triangle, square, pentagonal, hexagonal, heptagonal, and octagonal, is represented by a different number in the set.
+
+
+def cyclic_sum():
+    [P3, P4, P5, P6, P7, P8] = map(split_and_filter, pn(4))
+    n_gonal_numbers = [P3, P4, P5, P6, P7, P8]
+    potential_sol = []
+    # first sweep
+    for base in P8:
+        first_shift_possibilities = []
+        for i in range(5):
+            num_set = [P3, P4, P5, P6, P7][i]
+            for num in num_set:
+                if num[0] == base[1] and num[1] == base[2] and num[2] == base[3]:
+                    first_shift_possibilities.append([i, base + [num[3]]])
+
+        # second sweep
+        for first_shift_possibility in first_shift_possibilities:
+            # print(first_shift_possibility[1])
+            second_shift_possibilities = []
+            for i in range(5):
+                num_set = [P3, P4, P5, P6, P7][i]
+                if not i == first_shift_possibility[0]:
+                    for num in num_set:
+                        if num[0] == first_shift_possibility[1][2] and num[1] == first_shift_possibility[1][3] and num[2] == first_shift_possibility[1][4]:
+                            second_shift_possibilities.append(
+                                [i, first_shift_possibility[1] + [num[3]]])
+
+            # print(second_shift_possibilities)
+            if len(second_shift_possibilities) > 0:
+                potential_sol = second_shift_possibilities[0][1]
+
+    for i in range(len(n_gonal_numbers)):
+        print(n_gonal_numbers[i])
+        if [5, 6, 1, 2] in n_gonal_numbers[i]:
+            print('FOUND', i)
+
+    sum = 1
+    for i in potential_sol:
+        sum += i * 1111
+    return sum
+
+
+def pn(d):
+    [arr, funcs] = [[], [lambda n: n*(n+1)/2, lambda n: n**2, lambda n: n*(
+        3*n-1)/2, lambda n: n*(2*n-1), lambda n: n*(5*n-3)/2, lambda n: n*(3*n-2)]]
+    for func in funcs:
+        [n, pnn] = [1, []]
+        while True:
+            pn = func(n)
+            if pn >= 10 ** (d):
+                break
+            if pn >= 10 ** (d-1):
+                pnn.append(pn)
+            n += 1
+        arr.append(pnn)
+    return arr
+
+
+def split_and_filter(arr):
+    output = []
+    for i in arr:
+        split_i = map(int, str(i))
+        if 0 not in split_i:
+            output.append(split_i)
+    return output
+
+
+if __name__ == "__main__":
+    print(cyclic_sum())
