@@ -11,7 +11,17 @@
 # Using the numbers 1 to 10, and depending on arrangements, it is possible to form 16- and 17-digit strings. What is the maximum 16-digit string for a "magic" 5-gon ring?
 
 demo_array = [4, 3, 2, 6, 2, 1, 5, 1, 3]
+demo_5_gon = [1, 2, 3, 4, 3, 5, 6, 5, 7, 8, 7, 9, 10, 9, 2]
 
 
 def confirm_3_gon(arr):
     return True
+
+
+def validate_5_gon(arr):
+    i = 0
+    return i
+
+
+if __name__ == "__main__":
+    print(validate_5_gon(demo_5_gon))
