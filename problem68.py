@@ -14,12 +14,30 @@ demo_5_gon = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # lines (by index) => (0, 9, 1), (2, 1, 3), (4, 3, 5), (6, 5, 7), (8, 7, 9)
 
-max_possible_order = [6, 9, 8, 7,
+max_possible_order = [6, 9, 8, 7]
 max_outer_ring_clockwise = [6, 9, 8, 7, 10]
 
+# 10 MUST APPEAR AT INDEX 2, 4, 6, OR 8
+
+
+def maximum_order_generator():
+    # maximum conceivable starting would have line: 698 785 453 231 1019
+    gon = [6, 8, 7, 5, 4, 3, 2, 1, 10, 9]
+    while True:
+        if validate_5_gon(gon):
+            break
+
+    return gon_array_to_line(gon)
+
+
 def validate_5_gon(arr):
-    i = arr[0] + arr[9] + arr[2]
-    return i
+    i = arr[0] + arr[9] + arr[1]
+    if arr[2] + arr[1] + arr[3] == i:
+        if arr[4] + arr[3] + arr[5] == i:
+            if arr[6] + arr[5] + arr[7] == i:
+                if arr[8] + arr[7] + arr[9] == i:
+                    return True
+    return False
 
 
 def gon_array_to_line(arr):
@@ -31,4 +49,4 @@ def gon_array_to_line(arr):
 
 
 if __name__ == "__main__":
-    print(gon_array_to_line(demo_5_gon))
+    print(maximum_order_generator())
